@@ -13,6 +13,12 @@
       </template>
       <div class="top-card-content">
         <h1>How to Start?</h1>
+        <h2>Project Setup</h2><br />
+        <h3>npm install</h3><br />
+        <h2>Compile and Hot-Reload for Development</h2><br />
+        <h3>npm run dev</h3><br />
+        <h2>Type-Check, Compile and Minify for Production</h2><br />
+        <h3>npm run build</h3><br />
       </div>
     </mycard>
   </div>
@@ -21,7 +27,6 @@
 
 <script setup lang="ts">
 import Mycard from '@/components/mycard.vue';
-
 </script>
 
 <style scoped>

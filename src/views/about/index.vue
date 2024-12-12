@@ -1,6 +1,9 @@
 <template>
     <div>
-        THIS IS THE ABOUT PAGE
+        <mycard>
+            <h1>About</h1>
+            <p>Why chooses us?</p>
+        </mycard>
     </div>
 </template>
 
