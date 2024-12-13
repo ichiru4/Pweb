@@ -23,10 +23,9 @@ import ProfileCard from './components/ProfileCard.vue';
 <style scoped>
 .app {
   display: flex;
-  width: 100%;
   min-height: 100vh;
-  padding: 0 10%;
-  background-color: rgb(241, 249, 255);
+  margin: auto;
+  max-width: 1180px;
 }
 /* 
 .fade-transform-enter-active,
