@@ -1,9 +1,9 @@
 <template>
     <div class="content">
-        <h1 class="card-text">{{ props.data?.title }}</h1>
-        <h4 class="card-text">{{ props.data?.description }}</h4>
+        <h1 class="card-text">{{ props.data?.Title }}</h1>
+        <h4 class="card-text" v-if="props.descriptionVisible">{{ props.data?.Description }}</h4>
         <div class="bottom-box">
-            <span class="timebox">{{ props.data?.date }}</span>
+            <span class="timebox">{{ props.data?.PublishTime }}</span>
             <div class="tags-box">
                 <div class="tags" v-for="tag in props.data?.tags">{{ tag }}</div>
             </div>
@@ -11,6 +11,8 @@
     </div>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue';
+
 //data的格式如下
 // interface data {
 //     title: string,
@@ -20,9 +22,16 @@
 // }
 const props = defineProps({
     data: {
-        type: Object,
+        type: [Object,null],
+        default: null
+    },
+    descriptionVisible:{
+        type: Boolean,
+        default: true
     }
 });
+
+
 </script>
 
 <style scoped>

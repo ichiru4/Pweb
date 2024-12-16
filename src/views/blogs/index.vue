@@ -11,46 +11,69 @@
             </mycard>
             <mycard imagePosition="right" v-for="(item, index) in blogList" style="max-height: 350px;">
                 <template #image>
-                    <img :src="item.image"  alt="" @click="handleSelect(item.id)">
+                    <img :src="item.Image ? item.Image : '/src/assets/images/a01.jpg'" alt=""
+                        @click="handleSelect(item.Id)">
                 </template>
                 <div class="content">
-                    <h1 class="card-text" @click="handleSelect(item.id)">{{ item.title }}</h1>
-                    <h4 class="card-text">{{ item.description }}</h4>
+                    <h1 class="card-text" @click="handleSelect(item.Id)">{{ item.Title }}</h1>
+                    <h4 class="card-text">{{ item.Description }}</h4>
                     <div class="bottom-box">
-                        <span class="timebox">{{ item.date }}</span>
+                        <span class="timebox">{{ item.PublishTime }}</span>
                         <div class="tags-box">
-                            <div class="tags" v-for="tag in item.tags">{{ tag }}</div>
+                            <div class="tags" v-for="tag in item.Tags">{{ tag }}</div>
                         </div>
                     </div>
                 </div>
             </mycard>
+            <div style="display: flex;justify-content: flex-end;gap: 20px;">
+                <Mycard class="pagination">
+                    <SvgIcon name="arrow-left-circle-line" size="40"></SvgIcon>
+                </Mycard>
+                <Mycard class="pagination">
+                    <SvgIcon name="arrow-right-circle-line" size="40"></SvgIcon>
+                </Mycard>
+
+            </div>
+
         </MainContainer>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { getBlogList, type blogRequest, type pageHelper } from '@/assets/api/blogApi';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 const state = ref('');
 const querySearchAsync = ref([{ value: 'no data', link: '' }]);
-const router= useRouter();
-const handleSelect = (id: number) => { 
+const router = useRouter();
+const currentPage = ref(1);
+const pageSize = ref(5);
+const total = ref(0);
+const handleSelect = (id: string) => {
     router.push(`/blogs/${id}`)
 }
-const blogList = [{
-    id: 1,
-    image: "/src/assets/images/a01.jpg",
-    title: 'blog title',
-    description: 'this can be a short description',
-    date: '2024-02-02',
-    tags: ['Test', 'Blog']
-},{ id: 2,
-    image: "/src/assets/images/a01.jpg",
-    title: '如果你是要测试，如何去测试测试是不是测试呢',
-    description: '测试是测试，如果测试不是测试，那就不是测试。但是测试还是测试。',
-    date: '2024-02-02',
-    tags: ['Test', 'Blog']}]
+const blogList = ref([{
+    Id: "1",
+    Image: "/src/assets/images/a01.jpg",
+    Title: 'Blog title',
+    Description: '暂未找到blog,请发布你的Blog,如果未正常显示请刷新页面或检查服务器是否正常',
+    PublishTime: '2024-02-02',
+    Tags: ['Test', 'Blog']
+},])
+
+onMounted(async () => {
+    const params: pageHelper = {
+        page: currentPage.value,
+        size: pageSize.value
+    }
+    const response = await getBlogList(params)
+    blogList.value = response.response
+})
+
+
+
 </script>
+
 <style scoped>
 .container ::v-deep(.el-input--large) {
     height: 50px;
@@ -101,11 +124,13 @@ h4 {
     width: auto;
     color: rgb(191, 191, 191);
 }
-.tags-box{
+
+.tags-box {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
 }
+
 .tags {
     background-color: rgb(66, 9, 101);
     border-radius: 13px;
@@ -113,12 +138,20 @@ h4 {
     color: rgb(249, 249, 249);
 }
 
-.content h1:hover{
+.content h1:hover {
     cursor: pointer;
 }
-img:hover{
+
+img:hover {
     cursor: pointer;
     transition: 0.3s ease-in-out;
     transform: scale(1.1);
+}
+
+.pagination ::v-deep(.mycard-content) {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+
 }
 </style>

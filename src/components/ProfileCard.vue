@@ -1,7 +1,7 @@
 <template>
     <mycard style="width: 250px;">
         <div class="card-container">
-            <img src="@/assets/logo.svg">
+            <img src="@/assets/avatar.jpg">
             <div v-for="(link, index) in links" :key="index" class="link">
                 <SvgIcon :name="link.icon" size="17" ></SvgIcon>
                 <RouterLink :to="link.path">{{ link.name }}</RouterLink>
@@ -11,6 +11,8 @@
                 <svg-icon name="github" size="25"></svg-icon>
                 <svg-icon name="bilibili" size="25"></svg-icon>
                 <svg-icon name="twitter-x-line" size="25"></svg-icon>
+    
+
             </div>
         </div>
     </mycard>
@@ -38,7 +40,7 @@ const links = [
 }
 
 .card-container img {
-    border-radius: 50%;
+    border-radius: 30px;
     padding: 10px;
 }
 
