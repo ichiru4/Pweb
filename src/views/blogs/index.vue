@@ -9,16 +9,15 @@
                     </template>
                 </el-autocomplete>
             </mycard>
-            <mycard imagePosition="right" v-for="(item, index) in blogList" style="max-height: 350px;">
+            <mycard imagePosition="right" v-if="isLoading" v-for="(item, index) in blogList">
                 <template #image>
-                    <img :src="item.Image ? item.Image : '/src/assets/images/a01.jpg'" alt=""
-                        @click="handleSelect(item.Id)">
+                    <img :src="item.Image ? item.Image : defaultImage" alt="" @click="handleSelect(item.Id)">
                 </template>
                 <div class="content">
                     <h1 class="card-text" @click="handleSelect(item.Id)">{{ item.Title }}</h1>
                     <h4 class="card-text">{{ item.Description }}</h4>
                     <div class="bottom-box">
-                        <span class="timebox">{{ item.PublishTime }}</span>
+                        <!-- <span class="timebox">{{ item.PublishTime }}</span> -->
                         <div class="tags-box">
                             <div class="tags" v-for="tag in item.Tags">{{ tag }}</div>
                         </div>
@@ -43,12 +42,14 @@
 import { getBlogList, type blogRequest, type pageHelper } from '@/assets/api/blogApi';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import defaultImage from '@/assets/images/a01.jpg';
 const state = ref('');
 const querySearchAsync = ref([{ value: 'no data', link: '' }]);
 const router = useRouter();
 const currentPage = ref(1);
 const pageSize = ref(5);
 const total = ref(0);
+const isLoading = ref(false)
 const handleSelect = (id: string) => {
     router.push(`/blogs/${id}`)
 }
@@ -62,12 +63,17 @@ const blogList = ref([{
 },])
 
 onMounted(async () => {
-    const params: pageHelper = {
-        page: currentPage.value,
-        size: pageSize.value
+    try {
+        const params: pageHelper = {
+            page: currentPage.value,
+            size: pageSize.value
+        }
+        const response = await getBlogList(params)
+        blogList.value = response.response
     }
-    const response = await getBlogList(params)
-    blogList.value = response.response
+    finally {
+        isLoading.value = true
+    }
 })
 
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { InternalAxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5173/api',
+    baseURL: '/api',
     timeout: 10000,
 });
 const router = useRouter();

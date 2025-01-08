@@ -19,15 +19,15 @@ export default defineConfig({
     svgIconsPlugin,
 
   ],
-  server:{
-    proxy:{
-      '/api':{
-        target:'http://localhost:5161',
-        changeOrigin:true,
-        rewrite:path => path.replace(/^\/api/, '')
-      }
-    }
-  },
+  // server:{
+  //   proxy:{
+  //     '/api':{
+  //       target:'http://localhost:5161',
+  //       changeOrigin:true,
+  //       rewrite:path => path.replace(/^\/api/, '')
+  //     }
+  //   }
+  // },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

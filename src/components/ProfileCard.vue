@@ -11,8 +11,6 @@
                 <svg-icon name="github" size="25"></svg-icon>
                 <svg-icon name="bilibili" size="25"></svg-icon>
                 <svg-icon name="twitter-x-line" size="25"></svg-icon>
-    
-
             </div>
         </div>
     </mycard>

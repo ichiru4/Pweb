@@ -49,7 +49,9 @@ const props = defineProps({
 .card-wrapper {
   display: flex;
   width: 100%;
+  height: 100%;
   margin: 0;
+  flex: 1;
 }
 
 .mycard {
@@ -57,6 +59,8 @@ const props = defineProps({
   background-color: #ffffff;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   /* 防止内容溢出 */
 }
 
@@ -74,5 +78,6 @@ const props = defineProps({
 .mycard-content {
   padding: 20px;
   width: 100%;
+  flex:1;
 }
 </style>

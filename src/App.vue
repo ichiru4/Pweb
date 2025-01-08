@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import ProfileCard from './components/ProfileCard.vue';
+import topNav from './components/TopNav.vue';
+const keepAliveName = ['blog']
+
 </script>
 
 <template>
   <div class="app">
-    <el-header style="margin-top: 20px;">
+    <el-header class="desktop-header" style="margin-top: 20px;">
       <ProfileCard />
+    </el-header>
+    <el-header class="mobile-header" style="padding: 0;">
+      <top-nav />
     </el-header>
     <el-main style="overflow: hidden;">
       <transition appear name="slide-up" mode="out-in">
@@ -24,9 +30,10 @@ import ProfileCard from './components/ProfileCard.vue';
 .app {
   display: flex;
   min-height: 100vh;
-  margin: auto;
   max-width: 1180px;
+  margin: auto;
 }
+
 /* 
 .fade-transform-enter-active,
 .fade-transform-leave-active {
@@ -45,7 +52,9 @@ import ProfileCard from './components/ProfileCard.vue';
   transform: translateX(0);
 } */
 
-
+.mobile-header {
+  display: none;
+}
 
 /* 定义从下往上的过渡效果的CSS类 */
 .slide-up-enter-active,
@@ -66,16 +75,28 @@ import ProfileCard from './components/ProfileCard.vue';
   transform: translateY(0);
   /* 回到原始位置 */
 }
-.slide-up-enter-active{
+
+.slide-up-enter-active {
   transition-delay: 0.2s;
 }
 
 /* 添加渐入动画 */
-@media (max-width: 768px) {}
-
-@media (max-width: 1024px) {
-  .app {
-    padding: 0
+@media (max-width: 768px) {
+  .mobile-header {
+    display: block;
   }
+
+  .desktop-header {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {}
+
+@media (min-width: 901px) and (max-width: 1200px) {}
 </style>
